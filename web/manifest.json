@@ -11,8 +11,10 @@
     "shortcuts": [
         {
             "name": "Start Monitoring",
-            "url": "/",
-            "description": "Start monitoring Kick chat"
+            "short_name": "Monitor",
+            "description": "Start monitoring Kick chat",
+            "url": "/kick_notifier/",
+            "icons": [{ "src": "icons/Icon-192.png", "sizes": "192x192" }]
         }
     ],
     "icons": [
