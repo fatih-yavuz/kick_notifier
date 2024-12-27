@@ -42,6 +42,15 @@
 <body>
   <script>
     window.addEventListener('load', function(ev) {
+      // Request notification permission
+      if ('Notification' in window) {
+        Notification.requestPermission().then(function(permission) {
+          if (permission === 'granted') {
+            console.log('Notification permission granted');
+          }
+        });
+      }
+
       // Download main.dart.js
       _flutter.loader.load({
         serviceWorker: {

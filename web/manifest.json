@@ -8,6 +8,7 @@
     "description": "Kick.com chat notifications app",
     "orientation": "any",
     "prefer_related_applications": false,
+    "permissions": ["notifications"],
     "shortcuts": [
         {
             "name": "Start Monitoring",

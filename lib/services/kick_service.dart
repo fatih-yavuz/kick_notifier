@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:html' as html;
 import 'package:http/http.dart' as http;
 import 'package:web_socket_channel/web_socket_channel.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class KickChannelInfo {
   final int chatroomId;
@@ -190,6 +192,16 @@ class KickService {
   Future<void> _showNotification(String username, String message) async {
     _log('Showing notification for $username: $message');
 
+    if (kIsWeb) {
+      // Use web notifications when in browser/PWA
+      if (html.Notification.supported &&
+          html.Notification.permission == 'granted') {
+        html.Notification(username, body: message, icon: 'icons/Icon-192.png');
+      }
+      return;
+    }
+
+    // Use local notifications for mobile apps
     const androidDetails = AndroidNotificationDetails(
       'kick_chat',
       'Kick Chat',
