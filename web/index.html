@@ -20,9 +20,9 @@
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="Kick.com chat notifications app">
 
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- Mobile meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Kick Notifier">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
@@ -32,14 +32,13 @@
 
   <title>Kick Notifier</title>
   <link rel="manifest" href="manifest.json">
-
+</head>
+<body>
   <script>
     // The value below is injected by flutter build, do not touch.
     var serviceWorkerVersion = null;
   </script>
   <script src="flutter.js" defer></script>
-</head>
-<body>
   <script>
     window.addEventListener('load', function(ev) {
       // Request notification permission
@@ -50,11 +49,6 @@
           }
         });
       }
-
-      // Initialize Flutter
-      _flutter = {
-        loader: null
-      };
 
       // Wait for Flutter.js to load
       window.flutterWebRenderer = "canvaskit";
@@ -69,23 +63,24 @@
 
       // Initialize Flutter when the script is loaded
       var script = document.querySelector('script[src="flutter.js"]');
-      script.addEventListener('load', function() {
-        loading.remove();
-        window.flutter_inappwebview = {
-          debuggingEnabled: true
-        };
-        _flutter = window.flutter;
-        _flutter.loader.loadEntrypoint({
-          serviceWorker: {
-            serviceWorkerVersion: serviceWorkerVersion,
-          },
-          onEntrypointLoaded: function(engineInitializer) {
-            engineInitializer.initializeEngine().then(function(appRunner) {
-              appRunner.runApp();
-            });
-          }
+      if (script) {
+        script.addEventListener('load', function() {
+          loading.remove();
+          window.flutter_inappwebview = {
+            debuggingEnabled: true
+          };
+          window.flutter.loader.loadEntrypoint({
+            serviceWorker: {
+              serviceWorkerVersion: serviceWorkerVersion,
+            },
+            onEntrypointLoaded: function(engineInitializer) {
+              engineInitializer.initializeEngine().then(function(appRunner) {
+                appRunner.runApp();
+              });
+            }
+          });
         });
-      });
+      }
     });
   </script>
 </body>

@@ -9,15 +9,6 @@
     "orientation": "any",
     "prefer_related_applications": false,
     "permissions": ["notifications"],
-    "shortcuts": [
-        {
-            "name": "Start Monitoring",
-            "short_name": "Monitor",
-            "description": "Start monitoring Kick chat",
-            "url": "/kick_notifier/",
-            "icons": [{ "src": "icons/Icon-192.png", "sizes": "192x192" }]
-        }
-    ],
     "icons": [
         {
             "src": "icons/Icon-192.png",
