@@ -38,7 +38,7 @@ jobs:
         run: flutter pub get
 
       - name: Build
-        run: flutter build web --base-href /kick_notifier/ --web-renderer canvaskit --release
+        run: flutter build web --base-href /kick_notifier/ --web-renderer html --release
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
