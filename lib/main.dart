@@ -152,6 +152,20 @@ class _HomeScreenState extends State<HomeScreen>
               child:
                   Text(_isMonitoring ? 'Stop Monitoring' : 'Start Monitoring'),
             ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: () {
+                _addMessage(
+                    "Test User", "This is a test notification message!");
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+              ),
+              child: const Text('Test Notification'),
+            ),
             if (_isMonitoring) ...[
               const SizedBox(height: 20),
               Text(
