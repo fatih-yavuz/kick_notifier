@@ -51,10 +51,15 @@
         });
       }
 
-      // Download main.dart.js
-      _flutter.loader.load({
+      // Initialize Flutter
+      _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
+          });
         }
       });
     });
