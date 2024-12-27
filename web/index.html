@@ -52,15 +52,39 @@
       }
 
       // Initialize Flutter
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
-          });
-        }
+      _flutter = {
+        loader: null
+      };
+
+      // Wait for Flutter.js to load
+      window.flutterWebRenderer = "canvaskit";
+      var loading = document.createElement('div');
+      loading.style.position = 'fixed';
+      loading.style.top = '50%';
+      loading.style.left = '50%';
+      loading.style.transform = 'translate(-50%, -50%)';
+      loading.style.fontSize = '18px';
+      loading.innerText = 'Loading...';
+      document.body.appendChild(loading);
+
+      // Initialize Flutter when the script is loaded
+      var script = document.querySelector('script[src="flutter.js"]');
+      script.addEventListener('load', function() {
+        loading.remove();
+        window.flutter_inappwebview = {
+          debuggingEnabled: true
+        };
+        _flutter = window.flutter;
+        _flutter.loader.loadEntrypoint({
+          serviceWorker: {
+            serviceWorkerVersion: serviceWorkerVersion,
+          },
+          onEntrypointLoaded: function(engineInitializer) {
+            engineInitializer.initializeEngine().then(function(appRunner) {
+              appRunner.runApp();
+            });
+          }
+        });
       });
     });
   </script>
